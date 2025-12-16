@@ -1,3 +1,5 @@
+<img src="https://storybook.js.org/docs-assets/10.1/get-started/example-welcome.png" heigh="auto" width="300px" style="margin:auto"/>
+
 # @cartino/ui
 
 Una libreria di componenti UI costruita con Vue 3, Tailwind CSS e Reka UI.
