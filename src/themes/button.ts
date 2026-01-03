@@ -2,8 +2,8 @@ import { tv } from 'tailwind-variants'
 
 /**
  * Button Component Theme
- * Polaris-inspired design with Cartino primary color (#0e5bff)
- * Matches Shopify Polaris Button component specs exactly
+ * Primary default = medium neutral (brighter than before)
+ * Secondary default = neutral/white with border
  */
 export default tv({
   slots: {
@@ -42,21 +42,21 @@ export default tv({
       success: ''
     },
     size: {
-      // Small - Polaris "slim"
       sm: {
-        base: 'min-h-[32px] min-w-[32px] px-3 py-1.5 text-xs font-medium rounded-lg md:min-h-[28px] md:min-w-[28px]',
+        base:
+          'min-h-[30px] min-w-[30px] px-3 py-1.5 text-xs font-medium rounded-lg md:min-h-[28px] md:min-w-[28px]',
         leadingIcon: 'size-4',
         trailingIcon: 'size-4'
       },
-      // Medium - Polaris default
       md: {
-        base: 'min-h-[36px] min-w-[36px] px-4 py-2 text-sm font-medium rounded-lg md:min-h-[32px] md:min-w-[32px]',
+        base:
+          'min-h-[36px] min-w-[36px] px-4 py-2 text-sm font-medium rounded-lg md:min-h-[32px] md:min-w-[32px]',
         leadingIcon: 'size-4',
         trailingIcon: 'size-4'
       },
-      // Large - bigger buttons
       lg: {
-        base: 'min-h-[40px] min-w-[40px] px-5 py-2.5 text-base font-medium rounded-lg md:min-h-[36px] md:min-w-[36px]',
+        base:
+          'min-h-[40px] min-w-[40px] px-5 py-2.5 text-base font-medium rounded-lg md:min-h-[36px] md:min-w-[36px]',
         leadingIcon: 'size-4',
         trailingIcon: 'size-4'
       }
@@ -84,21 +84,27 @@ export default tv({
       variant: 'primary',
       tone: 'default',
       class: {
-        base: 'bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/80 disabled:opacity-50'
+        base:
+          'bg-neutral-700 text-white ' +
+          'hover:bg-neutral-600 active:bg-neutral-500 disabled:opacity-50'
       }
     },
     {
       variant: 'primary',
       tone: 'success',
       class: {
-        base: 'bg-success text-success-foreground hover:bg-success/90 active:bg-success/80 disabled:opacity-50'
+        base:
+          'bg-success text-success-foreground ' +
+          'hover:bg-success/90 active:bg-success/80 disabled:opacity-50'
       }
     },
     {
       variant: 'primary',
       tone: 'critical',
       class: {
-        base: 'bg-error text-error-foreground hover:bg-error/90 active:bg-error/80 disabled:opacity-50'
+        base:
+          'bg-error text-error-foreground ' +
+          'hover:bg-error/90 active:bg-error/80 disabled:opacity-50'
       }
     },
 
@@ -107,21 +113,27 @@ export default tv({
       variant: 'secondary',
       tone: 'default',
       class: {
-        base: 'bg-card text-foreground border border-border hover:bg-accent active:bg-accent/80 disabled:opacity-50'
+        base:
+          'bg-card text-foreground border border-border ' +
+          'hover:bg-accent active:bg-accent/80 disabled:opacity-50'
       }
     },
     {
       variant: 'secondary',
       tone: 'success',
       class: {
-        base: 'bg-card text-success border border-success/30 hover:bg-success/10 active:bg-success/20 disabled:opacity-50'
+        base:
+          'bg-card text-success border border-success/30 ' +
+          'hover:bg-success/10 active:bg-success/20 disabled:opacity-50'
       }
     },
     {
       variant: 'secondary',
       tone: 'critical',
       class: {
-        base: 'bg-card text-error border border-error/30 hover:bg-error/10 active:bg-error/20 disabled:opacity-50'
+        base:
+          'bg-card text-error border border-error/30 ' +
+          'hover:bg-error/10 active:bg-error/20 disabled:opacity-50'
       }
     },
 
@@ -130,21 +142,24 @@ export default tv({
       variant: 'tertiary',
       tone: 'default',
       class: {
-        base: 'text-foreground hover:bg-accent active:bg-accent/80 disabled:opacity-50'
+        base:
+          'text-foreground hover:bg-accent active:bg-accent/80 disabled:opacity-50'
       }
     },
     {
       variant: 'tertiary',
       tone: 'success',
       class: {
-        base: 'text-success hover:bg-success/10 active:bg-success/20 disabled:opacity-50'
+        base:
+          'text-success hover:bg-success/10 active:bg-success/20 disabled:opacity-50'
       }
     },
     {
       variant: 'tertiary',
       tone: 'critical',
       class: {
-        base: 'text-error hover:bg-error/10 active:bg-error/20 disabled:opacity-50'
+        base:
+          'text-error hover:bg-error/10 active:bg-error/20 disabled:opacity-50'
       }
     },
 
@@ -153,21 +168,24 @@ export default tv({
       variant: 'plain',
       tone: 'default',
       class: {
-        base: 'text-primary hover:text-primary/80 active:text-primary/70 disabled:opacity-50'
+        base:
+          'text-primary hover:text-primary/80 active:text-primary/70 disabled:opacity-50'
       }
     },
     {
       variant: 'plain',
       tone: 'success',
       class: {
-        base: 'text-success hover:text-success/80 active:text-success/70 disabled:opacity-50'
+        base:
+          'text-success hover:text-success/80 active:text-success/70 disabled:opacity-50'
       }
     },
     {
       variant: 'plain',
       tone: 'critical',
       class: {
-        base: 'text-error hover:text-error/80 active:text-error/70 disabled:opacity-50'
+        base:
+          'text-error hover:text-error/80 active:text-error/70 disabled:opacity-50'
       }
     },
 
@@ -175,11 +193,12 @@ export default tv({
     {
       variant: 'monochromePlain',
       class: {
-        base: 'text-foreground hover:bg-accent active:bg-accent/80 disabled:opacity-50'
+        base:
+          'text-foreground hover:bg-accent active:bg-accent/80 disabled:opacity-50'
       }
     },
+
     // ===== ICON ONLY (SQUARE) ADJUSTMENTS =====
-    // Remove negative margins and center icon perfectly
     {
       square: true,
       class: {
@@ -220,7 +239,6 @@ export default tv({
   }
 })
 
-// Export types for TypeScript support
 export type ButtonVariant =
   | 'primary'
   | 'secondary'

@@ -1,8 +1,7 @@
 import { tv } from 'tailwind-variants'
 
 export default tv({
-  // Use size-* utilities for better integration with parent components
-  base: 'shrink-0 inline-block',
+  base: 'shrink-0 inline-block align-middle text-muted-foreground',
   variants: {
     size: {
       '3xs': 'size-2.5',
@@ -16,6 +15,7 @@ export default tv({
       '3xl': 'size-10'
     }
   },
+
   defaultVariants: {
     size: 'md'
   }

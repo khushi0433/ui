@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import Link from '@/components/Link.vue'
+import Link from '../../components/Link.vue'
 
 const meta = {
   title: 'Components/Link',
@@ -18,7 +18,27 @@ const meta = {
       control: 'select',
       options: ['default', 'muted', 'primary'],
       description: 'Link variant'
+    },
+    underline: {
+      control: 'boolean',
+      description: 'Always show underline'
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disabled state'
+    },
+    active: {
+      control: 'boolean',
+      description: 'Active/selected state (font-semibold)'
     }
+  },
+  args: {
+    href: '#',
+    external: false,
+    variant: 'default',
+    underline: false,
+    disabled: false,
+    active: false
   }
 } satisfies Meta<typeof Link>
 
@@ -28,7 +48,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     href: '#',
-    default: 'This is a link'
+    variant: 'default'
   },
   render: (args) => ({
     components: { Link },
@@ -44,9 +64,9 @@ export const Variants: Story = {
     components: { Link },
     template: `
       <div class="space-y-3">
-        <div><Link href="#" variant="default">Default Link</Link></div>
-        <div><Link href="#" variant="muted">Muted Link</Link></div>
-        <div><Link href="#" variant="primary">Primary Link</Link></div>
+        <div><Link href="#" variant="default">Default link</Link></div>
+        <div><Link href="#" variant="muted">Muted link</Link></div>
+        <div><Link href="#" variant="primary">Primary link</Link></div>
       </div>
     `
   })
@@ -55,14 +75,15 @@ export const Variants: Story = {
 export const ExternalLink: Story = {
   args: {
     href: 'https://example.com',
-    external: true
+    external: true,
+    variant: 'default'
   },
   render: (args) => ({
     components: { Link },
     setup() {
       return { args }
     },
-    template: '<Link v-bind="args">External Link (opens in new tab)</Link>'
+    template: '<Link v-bind="args">External link (opens in new tab)</Link>'
   })
 }
 
@@ -71,9 +92,14 @@ export const InText: Story = {
     components: { Link },
     template: `
       <p class="text-gray-700">
-        This is some text with an <Link href="#">inline link</Link> in the middle of it.
-        You can also add <Link href="#" variant="primary">primary links</Link> or 
-        <Link href="#" variant="muted">muted links</Link> as needed.
+        This is some text with an
+        <Link href="#">inline link</Link>
+        in the middle of it.
+        You can also add
+        <Link href="#" variant="primary">primary links</Link>
+        or
+        <Link href="#" variant="muted">muted links</Link>
+        as needed.
       </p>
     `
   })

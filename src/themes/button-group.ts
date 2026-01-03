@@ -2,7 +2,17 @@ import { tv } from 'tailwind-variants'
 
 export default tv({
   slots: {
-    base: 'inline-flex'
+    base: [
+      'inline-flex',
+      '[&>*]:min-h-[30px]',
+      '[&>*]:min-w-[30px]',
+      '[&>*]:inline-flex',
+      '[&>*]:items-center',
+      '[&>*]:justify-center',
+      '[&>*]:m-0',
+      'rounded-lg',
+      'overflow-hidden'
+    ].join(' ')
   },
   variants: {
     spacing: {
@@ -32,10 +42,16 @@ export default tv({
       stretch: {
         base: 'items-stretch'
       }
+    },
+    vertical: {
+      true: {
+        base: 'flex-col [&>*]:w-full [&>*]:min-w-full'
+      }
     }
   },
   defaultVariants: {
     spacing: 'md',
-    align: 'center'
+    align: 'center',
+    vertical: false
   }
 })

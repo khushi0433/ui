@@ -1,6 +1,7 @@
+// @/stories/Card.stories.ts
 import type { Meta, StoryObj } from '@storybook/vue3'
-import Card from '@/components/Card.vue'
-import Button from '@/components/Button.vue'
+import Card from '../../components/Card.vue'
+import Button from '../../components/Button.vue'
 
 const meta = {
   title: 'Components/Card',
@@ -9,27 +10,38 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'outlined', 'elevated'],
+      options: ['default', 'outline', 'elevated', 'ghost'],
       description: 'Visual variant style'
     },
-    padding: {
+    size: {
       control: 'select',
-      options: ['none', 'sm', 'md', 'lg'],
-      description: 'Padding size'
+      options: ['sm', 'md', 'lg'],
+      description: 'Card size (controls padding and typography)'
     },
-    rounded: {
-      control: 'select',
-      options: ['none', 'sm', 'md', 'lg', 'xl'],
-      description: 'Border radius'
-    },
-    hoverable: {
+    hover: {
       control: 'boolean',
-      description: 'Hover effect'
+      description: 'Enable hover elevation / surface effects'
     },
     clickable: {
       control: 'boolean',
-      description: 'Clickable with cursor pointer'
+      description: 'Clickable with cursor pointer and click handler'
+    },
+    title: {
+      control: 'text',
+      description: 'Title text rendered in the header'
+    },
+    description: {
+      control: 'text',
+      description: 'Description text rendered below the title in the header'
     }
+  },
+  args: {
+    variant: 'default',
+    size: 'md',
+    hover: false,
+    clickable: false,
+    title: undefined,
+    description: undefined
   }
 } satisfies Meta<typeof Card>
 
@@ -38,8 +50,8 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    title: 'Card Title',
-    description: 'This is a card description that provides additional context.'
+    title: 'Card title',
+    description: 'A short description providing context.'
   },
   render: (args) => ({
     components: { Card },
@@ -57,6 +69,9 @@ export const Default: Story = {
 }
 
 export const WithFooter: Story = {
+  args: {
+    hover: true
+  },
   render: (args) => ({
     components: { Card, Button },
     setup() {
@@ -67,7 +82,7 @@ export const WithFooter: Story = {
         <template #header>
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="text-lg font-semibold text-gray-900">Project Update</h3>
+              <h3 class="text-base font-semibold text-gray-900">Project update</h3>
               <p class="text-sm text-gray-600">Last updated 2 hours ago</p>
             </div>
             <span class="text-2xl">📊</span>
@@ -80,9 +95,9 @@ export const WithFooter: Story = {
         </p>
 
         <template #footer>
-          <div class="flex gap-2 pt-4 border-t border-gray-200">
-            <Button size="sm" variant="outline">Dismiss</Button>
-            <Button size="sm" variant="primary">View Details</Button>
+          <div class="flex gap-2 pt-3 border-t border-gray-200">
+            <Button size="sm" variant="secondary">Dismiss</Button>
+            <Button size="sm" variant="primary">View details</Button>
           </div>
         </template>
       </Card>
@@ -90,11 +105,11 @@ export const WithFooter: Story = {
   })
 }
 
-export const Outlined: Story = {
+export const Outline: Story = {
   args: {
-    variant: 'outlined',
-    title: 'Outlined Card',
-    description: 'This card has a thicker border'
+    variant: 'outline',
+    title: 'Outlined card',
+    description: 'This card has a more pronounced border.'
   },
   render: (args) => ({
     components: { Card },
@@ -103,7 +118,7 @@ export const Outlined: Story = {
     },
     template: `
       <Card v-bind="args">
-        <p class="text-gray-700">Content goes here</p>
+        <p class="text-gray-700">Content goes here.</p>
       </Card>
     `
   })
@@ -112,8 +127,9 @@ export const Outlined: Story = {
 export const Elevated: Story = {
   args: {
     variant: 'elevated',
-    title: 'Elevated Card',
-    description: 'This card has a shadow for elevation'
+    hover: true,
+    title: 'Elevated card',
+    description: 'This card has a subtle shadow for emphasis.'
   },
   render: (args) => ({
     components: { Card },
@@ -122,7 +138,7 @@ export const Elevated: Story = {
     },
     template: `
       <Card v-bind="args">
-        <p class="text-gray-700">Content goes here</p>
+        <p class="text-gray-700">Content goes here.</p>
       </Card>
     `
   })
@@ -130,9 +146,9 @@ export const Elevated: Story = {
 
 export const Hoverable: Story = {
   args: {
-    hoverable: true,
-    title: 'Hoverable Card',
-    description: 'Hover over this card to see the effect'
+    hover: true,
+    title: 'Hoverable card',
+    description: 'Hover over this card to see the effect.'
   },
   render: (args) => ({
     components: { Card },
@@ -150,9 +166,9 @@ export const Hoverable: Story = {
 export const Clickable: Story = {
   args: {
     clickable: true,
-    hoverable: true,
-    title: 'Clickable Card',
-    description: 'Click this card to trigger an action'
+    hover: true,
+    title: 'Clickable card',
+    description: 'Click this card to trigger an action.'
   },
   render: (args) => ({
     components: { Card },
@@ -170,41 +186,28 @@ export const Clickable: Story = {
   })
 }
 
-export const NoPadding: Story = {
-  args: {
-    padding: 'none',
-    title: 'No Padding',
-    description: 'Content without padding'
-  },
-  render: (args) => ({
-    components: { Card },
-    setup() {
-      return { args }
-    },
-    template: `
-      <Card v-bind="args">
-        <img
-          src="https://images.unsplash.com/photo-1557683316-973673baf926"
-          alt="Placeholder"
-          class="w-full h-48 object-cover"
-        />
-      </Card>
-    `
-  })
-}
-
 export const ImageCard: Story = {
   render: () => ({
     components: { Card, Button },
     template: `
-      <Card padding="none" hoverable>
+      <Card
+        :hover="true"
+        :clickable="false"
+        :title="undefined"
+        :description="undefined"
+        :ui="{ content: 'p-0' }"
+        size="lg"
+      >
+        <!-- Full-bleed image: no padding, clipped by card's rounded corners -->
         <img
           src="https://images.unsplash.com/photo-1557683316-973673baf926"
           alt="Gradient"
-          class="w-full h-48 object-cover"
+          class="block w-full h-48 object-cover"
         />
+
+        <!-- Text/content area with its own padding -->
         <div class="p-6">
-          <h3 class="text-lg font-semibold text-gray-900">Beautiful Landscape</h3>
+          <h3 class="text-base font-semibold text-gray-900">Beautiful Landscape</h3>
           <p class="mt-2 text-sm text-gray-600">
             Discover amazing places around the world and create unforgettable memories.
           </p>
@@ -219,63 +222,20 @@ export const ImageCard: Story = {
   })
 }
 
-export const ProductCard: Story = {
-  render: () => ({
-    components: { Card, Button, Badge: () => import('@/components/Badge.vue') },
-    template: `
-      <Card padding="none" hoverable clickable>
-        <div class="relative">
-          <img
-            src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e"
-            alt="Product"
-            class="w-full h-64 object-cover"
-          />
-          <div class="absolute top-3 right-3">
-            <span class="px-2 py-1 text-xs font-semibold text-white bg-red-600 rounded">
-              -30%
-            </span>
-          </div>
-        </div>
-        <div class="p-6">
-          <div class="flex items-start justify-between">
-            <div>
-              <h3 class="text-lg font-semibold text-gray-900">Wireless Headphones</h3>
-              <p class="mt-1 text-sm text-gray-600">Premium sound quality</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xs text-gray-400 line-through">$199.99</div>
-              <div class="text-lg font-bold text-gray-900">$139.99</div>
-            </div>
-          </div>
-
-          <div class="mt-4 flex items-center gap-1 text-sm text-yellow-500">
-            ★★★★★ <span class="text-gray-600">(4.9)</span>
-          </div>
-
-          <div class="mt-4 grid grid-cols-2 gap-2">
-            <Button size="sm" variant="outline">Add to Cart</Button>
-            <Button size="sm" variant="primary">Buy Now</Button>
-          </div>
-        </div>
-      </Card>
-    `
-  })
-}
-
-export const StatCard: Story = {
+export const StatCards: Story = {
   render: () => ({
     components: { Card },
     template: `
       <div class="grid grid-cols-3 gap-4">
-        <Card variant="elevated" hoverable>
+        <Card variant="elevated" hover size="sm">
           <div class="text-center">
             <div class="text-3xl mb-2">👥</div>
             <div class="text-2xl font-bold text-gray-900">1,234</div>
-            <div class="text-sm text-gray-600">Total Users</div>
+            <div class="text-sm text-gray-600">Total users</div>
           </div>
         </Card>
 
-        <Card variant="elevated" hoverable>
+        <Card variant="elevated" hover size="sm">
           <div class="text-center">
             <div class="text-3xl mb-2">📊</div>
             <div class="text-2xl font-bold text-gray-900">$45.2K</div>
@@ -283,7 +243,7 @@ export const StatCard: Story = {
           </div>
         </Card>
 
-        <Card variant="elevated" hoverable>
+        <Card variant="elevated" hover size="sm">
           <div class="text-center">
             <div class="text-3xl mb-2">⭐</div>
             <div class="text-2xl font-bold text-gray-900">4.9</div>
@@ -300,16 +260,22 @@ export const AllVariants: Story = {
     components: { Card },
     template: `
       <div class="space-y-4">
-        <Card variant="default" title="Default Card">
-          <p class="text-gray-700">Standard card with border</p>
+        <Card variant="default" title="Default card">
+          <p class="text-gray-700">Standard card with border and subtle shadow.</p>
         </Card>
 
-        <Card variant="outlined" title="Outlined Card">
-          <p class="text-gray-700">Card with thicker border</p>
+        <Card variant="outline" title="Outline card">
+          <p class="text-gray-700">Card with a stronger border and no shadow.</p>
         </Card>
 
-        <Card variant="elevated" title="Elevated Card">
-          <p class="text-gray-700">Card with shadow elevation</p>
+        <Card variant="elevated" hover title="Elevated card">
+          <p class="text-gray-700">Card with stronger shadow for emphasis.</p>
+        </Card>
+
+        <Card variant="ghost" title="Ghost card">
+          <p class="text-gray-700">
+            No background or border; useful when the surrounding layout already provides surface.
+          </p>
         </Card>
       </div>
     `
